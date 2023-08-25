@@ -16,6 +16,14 @@ func TestQueryData(t *testing.T) {
 			Queries: []backend.DataQuery{
 				{RefID: "A"},
 			},
+			PluginContext: backend.PluginContext{
+				DataSourceInstanceSettings: &backend.DataSourceInstanceSettings{
+					JSONData: []byte(`{"host":"localhost"}`),
+					DecryptedSecureJSONData: map[string]string{
+						"apiKey": "secret",
+					},
+				},
+			},
 		},
 	)
 	if err != nil {

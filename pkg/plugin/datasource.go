@@ -48,6 +48,10 @@ func (d *Datasource) Dispose() {
 func (d *Datasource) QueryData(ctx context.Context, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
 	instanceSettings := req.PluginContext.DataSourceInstanceSettings
 
+	if instanceSettings == nil {
+		return nil, errors.New("failed to get datasource instance settings")
+	}
+
 	settings, err := unmarshalSettings(instanceSettings.JSONData)
 	if err != nil {
 		return nil, fmt.Errorf("error reading settings: %w", err)
